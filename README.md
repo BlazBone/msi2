@@ -20,13 +20,15 @@ Golang image, je simple server, ki streze na 8081.
 -   lahko vpisemo oceno(int) ter predmet
 -   kliknemo dodaj v redovalnico
 -   ter prikazemo redovalnico z drugim gumbom
--   (zahteve se posljejo na nas api, ki dela na portu 5000)
+-   (zahteve se posljejo na nas api, ki dela na portu 5000) /vseOcene(get), /dodajOceno(post)
     ![alt text](/images/front.png)
 
 ## backend
 
 -   http://localhost:5000
 -   http://localhost:5000/now nam vrne trenutne cas. tako lahko samostojno zazenemo in preverimo delovanje api kar v browserju
+-   http://localhost:5000/dodajOceno sprejme post ter podatka, ki sta bila v inputu na clientu ter ju vnese v bazo
+-   http://localhost:5000/vseOcene naredi preprosto poizvedbo SELECT \* FROM ocene; ter vrne rezultat clientu, da ga ta lahko izpise
     ![alt text](/images/back.png)
 
 ## golang
@@ -44,4 +46,4 @@ Golang image, je simple server, ki streze na 8081.
 
 ## db
 
--   najbolj smiselna uporaba volumes, saj ko git clonamo mapa s podatki ne obstaja, to naredi docker in v njo posilja vse posatke, kateri so shranjeni v bazi v kontejnerju, da ko se ta zapre ne izgubimo podatkov, temvec se ob ponovnem zagonu ti shranijo in ocene ostanejo zapisane.
+-   najbolj smiselna uporaba volumes, saj ko git clonamo mapa s podatki ne obstaja, to naredi docker in v njo posilja vse podatke, ki so shranjeni v bazi v kontejnerju, da ko se ta konteiner zapre ne izgubimo podatkov. Ti se ob ponovnem zagonu prepisejo iz mape.
