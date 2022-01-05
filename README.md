@@ -7,7 +7,7 @@ Golang image, je simple server, ki streze na 8081.
 
 ## uporaba:
 
--   git clone https:/github.com/BlazBone/msi2.git
+-   git clone https://github.com/BlazBone/msi2.git
 -   cd msi2
 -   docker compose up
 -   pocakamo
