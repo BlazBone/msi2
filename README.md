@@ -1,49 +1,56 @@
-# NALOGA
+# Full stack app deployment with docker compose
 
-to je druga naloga pri predmetu MSI, kjer sem se odlocil, da deployam full stack web app + golang server, katerega image je multistage build.
-webb app ima za frontend REACT, in je dostopen na portu 3000 imamo express backend/api, na portu 5000, ki nam dostopa do podatkovne baze, zaz branje in pisanje.
-Za podatkovno bazo sem uporabil POSTGRESSQL imamo pa tudi ADMINER, s katerim lahko na portu 8080 dostopamo do podatkovne baze preko browserja.
-Golang image, je simple server, ki streze na 8081.
+Here is a deployment of a PERN(PostgreSQL,Express,React,Node) app that is a simple markbook. It also has a side server that is not connected to the main app(minimal build golang server).
 
-## uporaba:
+# Usage
 
--   git clone https://github.com/BlazBone/msi2.git
--   cd msi2
--   docker compose up
--   pocakamo
-    ![alt text](/images/running.png)
-    (vidimo vse kontejnerje uspesno teci)
+```
+ git clone https://github.com/BlazBone/msi2.git
+```
 
-## frontend
+```
+cd msi2
+```
 
--   http://localhost:3000
--   lahko vpisemo oceno(int) ter predmet
--   kliknemo dodaj v redovalnico
+```
+docker compose up
+```
+
+wait....
+
+![alt text](/images/running.png)
+we can see all our containers running
+
+# Frontend
+
+-   http://localhost
+-   we can enter the mark in 'vnesi oceno'(must be INT) end subject in 'vnesi predmet'
+-   press 'dodaj v predavalnico' to add to the markbook
+-   show our markbook with 'prikazi redovalnico'
 -   ter prikazemo redovalnico z drugim gumbom
--   (zahteve se posljejo na nas api, ki dela na portu 5000) /vseOcene(get), /dodajOceno(post)
     ![alt text](/images/front.png)
 
-## backend
+# Backend
 
 -   http://localhost:5000
--   http://localhost:5000/now nam vrne trenutne cas. tako lahko samostojno zazenemo in preverimo delovanje api kar v browserju
--   http://localhost:5000/dodajOceno sprejme post ter podatka, ki sta bila v inputu na clientu ter ju vnese v bazo
--   http://localhost:5000/vseOcene naredi preprosto poizvedbo SELECT \* FROM ocene; ter vrne rezultat clientu, da ga ta lahko izpise
+-   http://localhost:5000/now returns current time
+-   http://localhost:5000/dodajOceno is used to add a mark
+-   http://localhost:5000/vseOcene is used to get all grades from database
     ![alt text](/images/back.png)
 
-## golang
+# Golang
 
 -   http://localhost:8081
--   http://localhost:8081/drugo kratek opis razlike slik
+-   http://localhost:8081/drugo short description (in slovene) about difference of the images
     ![alt text](/images/golang.png)
 
-## adminer
+# Adminer
 
 -   http://localhost:8080
--   username myadmin geslo mypassword ter baza postgresql
--   pogledamo lahko, da se ustvari testna tabela, preko init.sql skripte. Ce smo dodali kaksno oceno, pa imamo tudi tabelo Ocene
+-   username: `myadmin` password: `mypassword` database: `postgresql`
+-   we can view our database
     ![alt text](/images/database.png)
 
-## db
+## PostgreSQL
 
--   najbolj smiselna uporaba volumes, saj ko git clonamo mapa s podatki ne obstaja, to naredi docker in v njo posilja vse podatke, ki so shranjeni v bazi v kontejnerju, da ko se ta konteiner zapre ne izgubimo podatkov. Ti se ob ponovnem zagonu prepisejo iz mape.
+-   Uses volumes to keep data safe in case our container brakes and can use data that has already been collected.
